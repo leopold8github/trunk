@@ -1,1 +1,184 @@
-Hello World!
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>  
+<meta charset="utf-8">  
+<title>用于一次性测试js</title>  
+<style>
+ textarea{width:700px;height:300px;}	
+</style>
+<script src="jquery.js"></script>
+<script src="jquery.json-2.4.js"></script>
+
+</head>
+<body>
+	
+	<!-- js编辑区-->
+	<p>js编辑区</p>
+	<textarea id="js_area">
+	</textarea>
+	<div>
+		<input type="button" onclick="run();" value="运行"/>
+		<input type="button" onclick="reloadUrl();" value="刷新"/>
+			<input type="button" onclick="clearJs();" value="清空"/>
+			<input type="button" onclick="createAlert();" value="alert"/>
+			<input type="button" onclick="createGetById();" value="$('#')"/>
+	</div>
+<!-- html编辑区-->	
+	<p>html编辑区</p>
+	<textarea id="html_area">	
+	</textarea>
+	<div>
+			<input type="button" onclick="clearHtml();" value="清空"/>
+			<input type="button" onclick="createDiv();" value="div"/>
+			<input type="button" onclick="createSpan();" value="span"/>
+				<input type="button" onclick="createButton();" value="button"/>
+				<input type="button" onclick="createText();" value="input_text"/>
+					<input type="button" onclick="createSelect();" value="select"/>
+						<input type="button" onclick="createA();" value="a"/>
+						<input type="button" onclick="createForm();" value="form"/>
+	</div>
+
+	<!-- 结果显示区-->
+	<p>结果显示区</p>
+ <div id="result"></div>
+
+</body>
+<script>
+	String.prototype.replaceAll = function (regexp,replacement) { 
+    return this.replace(new RegExp(regexp,"gm"),replacement);
+}
+	/**
+	*看是否需要加载script和html
+	*/
+	$(function(){
+	var url = location.href;
+	var index = url.indexOf("?");
+	if(index = -1){//直接访问ZHSZ.jsp
+		index = url.indexOf("?");
+		var param = url.substring(index+1);
+	 	var arr = param.split('&');
+	 	if(arr.length>1){
+	 		$("#js_area").val(unescape(arr[0]));
+	 		$("#html_area").val(unescape(arr[1]));
+	 	}
+	}
+		
+	});
+	 
+		var run = function(){
+			//先清空之前的结果
+			$("#result").html('');
+		var script = $("\<script type='text/javascript'\>\</script\>");
+		//若js_area中含<或>，则转义
+		var jsAreaContent = $("#js_area").val();
+		//alert(jsAreaContent)
+		jsAreaContent = jsAreaContent.replaceAll('<','&lt;').replaceAll('>','&gt;');
+		//alert(jsAreaContent)
+		script.append(jsAreaContent);
+		$("#result").append($("#html_area").val());
+		$("#result").append(script);
+		}
+		//刷新，并保留原数据，由于地址栏带参有限，所以这种方法使用也有限
+		var reloadUrl = function(){
+			var url = location.href;
+			if(url.indexOf('?')!=-1){
+				url = url.substring(0,url.indexOf('?'));
+			}
+			var tourl = url+'?'+escape($("#js_area").val())+'&'+escape($("#html_area").val());
+			//location.reload(false);
+			location.href = tourl;
+		}
+		
+		var clearJs = function(){
+			$("#js_area").val("");
+		}
+		var clearHtml = function(){
+			$("#html_area").val("");
+		}
+		
+		var createDiv = function(){
+				var content = "\<div id=''\>\</div\>";
+				insertAtCursor($("#html_area").get(0),content);
+		}
+		
+		var createSpan = function(){
+				var content = "\<span id=''\>\</span\>";
+				insertAtCursor($("#html_area").get(0),content);
+		}
+		var createButton = function(){
+				var content = "\<input type='button' name='' id=''/\>";
+				insertAtCursor($("#html_area").get(0),content);
+		}
+		var createText = function(){
+				var content = "\<input type='text' name='' id='' value=''/\>";
+				insertAtCursor($("#html_area").get(0),content);
+		}
+		var createSelect = function(){
+				var content = "\<select name='' id=''\>\<option value=''\> \</option\>  \n<select>";
+				insertAtCursor($("#html_area").get(0),content);
+		}
+		var createA = function(){
+				var content = "\<a name='' id='' href='' target=''\> \</a\>";
+				insertAtCursor($("#html_area").get(0),content);
+		}
+		var createForm = function(){
+				var content = "\<form name='' id='' action=''\> \</form\>";
+				insertAtCursor($("#html_area").get(0),content);
+		}
+		var createAlert = function(){
+				var content = "alert()";
+				insertAtCursor($("#js_area").get(0),content);
+		}
+		var createGetById = function(){
+				var content = "$('#')";
+				insertAtCursor($("#js_area").get(0),content);
+		}
+		
+		var insertAtCursor = function(obj/*html object*/,content/*String*/){
+			//IE support
+        if (document.selection) 
+        {
+            obj.focus();
+            var sel= document.selection.createRange();
+            sel.text= content;
+            sel.select();
+        //firefox support
+        }else{
+         if(typeof obj.selectionStart == 'number'){
+         			var start = obj.selectionStart;
+         			var end = obj.selectionEnd;
+         			var pre = obj.value.substr(0, start);   
+        			var post = obj.value.substr(end);
+        			obj.value = pre+ content+post;  
+         	}
+        }
+		}
+		
+		
+</script>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
