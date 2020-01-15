@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://www.baidufe.com/fehelper/postman/index.html -->
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>简易版Postman</title>
+    <meta name="Robots" content="INDEX,FOLLOW">
+    <meta name="keywords"
+          content="FeHelper,WEB前端助手,JSON格式化,JSON对比,信息编解码,代码美化,代码压缩,二维码生成,二维码解码,图片Base64转换,Markdown,随机密码生成器,正则表达式,时间戳转换,便签笔记,进制转换,贷款计算器">
+    <meta name="description"
+          content="WEB前端助手：FeHelper，浏览器插件，包含一些前端实用的工具，如JSON格式化,JSON对比,信息编解码,代码美化,代码压缩,二维码生成,二维码解码,图片Base64转换,Markdown,随机密码生成器,正则表达式,时间戳转换,便签笔记,进制转换,贷款计算器等">
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/pkgccpejnmalmdinmhkkfafefagiiiad">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="shortcut icon" href="https://www.baidufe.com/fehelper/static/img/favicon.ico">
+    <link rel="stylesheet" href="./static/js/jquery/jquery-ui.min.css">
+    <link rel="stylesheet" href="./postman/index.css">
+    <script type="text/javascript" src="./static/js/vue/vue.js"></script>
+    <script src="./static/js/require/require.js"></script>
+</head>
+<body>
+<div id="pageContainer" class="wrapper">
+    <div class="panel panel-default" style="margin-bottom: 0px;">
+        <div class="panel-heading"><h3 class="panel-title"><a href="http://www.baidufe.com/fehelper/feedback.html"
+                                                              target="_blank" class="x-a-high"><img
+                src="./postman/fe-16.png" alt="fehelper"> FeHelper</a>：简易版Postman</h3></div>
+    </div>
+    <div class="panel-body mod-endecode">
+        <div class="row mod-inputs">
+            <div class="ui-mt-10"><label for="url">接口地址：</label> <input type="text" id="url" placeholder="请输入Api地址"
+                                                                        class="form-control f-url"> <span
+                    class="x-xdemo">Get示例</span> <span class="x-xdemo">Post示例</span></div>
+            <div class="ui-mt-10"><label for="param">请求参数：</label> <textarea type="text" id="param" placeholder="请输出参数"
+                                                                             class="form-control f-param"></textarea>
+            </div>
+            <div class="ui-mt-10"><label for="method">请求方式：</label> <select id="method" class="form-control f-method">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="HEAD">HEAD</option>
+            </select> <input type="button" value="发送请求" class="btn btn-success"></div>
+        </div>
+        <div class="row hide">
+            <div id="tabs">
+                <ul class="the-tabs">
+                    <li><a href="https://www.baidufe.com/fehelper/postman/index.html#tab-content">数据</a></li>
+                    <li><a href="https://www.baidufe.com/fehelper/postman/index.html#tab-json">JSON</a></li>
+                    <li><a href="https://www.baidufe.com/fehelper/postman/index.html#tab-header">响应头</a></li>
+                </ul>
+                <div id="tab-content" class="mod-tab"></div>
+                <div id="tab-json" class="mod-tab">
+                    <div id="formattingMsg"><span class="x-loading"></span>格式化中...</div>
+                    <div id="jfCallbackName_start" class="callback-name"></div>
+                    <div id="jfContent"></div>
+                    <pre id="jfContent_pre"></pre>
+                    <div id="jfCallbackName_end" class="callback-name"></div>
+                </div>
+                <div id="tab-header" class="mod-tab">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>头信息</th>
+                            <th>具体内容</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./static/js/jquery/jquery-3.3.1.min.js"></script>
+<script src="./static/js/jquery/jquery.extend.js"></script>
+<script type="text/javascript" src="./static/js/jquery/jquery-ui.min.js"></script>
+<script type="text/javascript" src="./postman/index.js"></script>
+</body>
+</html>
