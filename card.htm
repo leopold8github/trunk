@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang=zh-CN>
+<head><title>卡号转换</title>
+    <meta charset=UTF-8>
+    <link rel=stylesheet href=./static/css/fe-codebeautify.css>
+    <script src=./static/js/core/jquery-1.5.min.js></script>
+    <script src=./static/js/mod/mod_codebeautify.js></script>
+    <style type="text/css">
+        table tr {
+            height: 40px;
+        }
+        table tr td {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+<div class=wrapper>
+    <div class="panel panel-default" style="margin-bottom: 0px;">
+        <div class=panel-heading><h3 class="panel-title"><span style="color: red">输出十进制和十六进制正反序</span></h3></div>
+    </div>
+    <div class="panel-body mod-code">
+        <div class=row><input class="form-control mod-textarea"  style="display: inline-block;width: 80%;" id="inputstr" placeholder="请输入卡号"/>
+            <input type="button" id="btn" style="width: 15%;margin-left: 2%" value="转  换"></div>
+        <div class="row ui-mt-10">
+          <table class="table-responsive" style="width: 80%">
+              <tr><td>十进制正</td><td>十进制反</td><td>十六进制正</td><td>十六进制反</td></tr>
+              <tr><td id="s1"></td><td id="s2"></td><td id="s3"></td><td id="s4"></td></tr>
+          </table>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+
+    function leftPad(num,len){
+        if ((num + "").length >= len) {
+            return num;
+        }
+        return leftPad("0" + num, len);
+    }
+
+    $("#btn").click(function(){
+        var s = $.trim($("#inputstr").val());
+        if (!s) {
+            alert("请输入需转换的数字！");
+            return ;
+        }
+
+        if (s.length != 8 && s.length != 10) {
+            alert("卡号不对！");
+            return ;
+        }
+
+        var s1,s2,s3,s4;
+        if (s.length == 8) { //十六进制
+            s3 = s ;
+            s4 = s.substr(6, 2) + s.substr(4, 2) + s.substr(2, 2) + s.substr(0, 2);
+            s1 = leftPad(parseInt(s, 16),10);
+            s2 = leftPad(parseInt(s4, 16),10);
+
+        }else if (s.length == 10) {//十进制
+            s1 = s ;
+            s3 = leftPad(Number(s).toString(16).toUpperCase(),8);
+            s4 = s3.substr(6, 2) + s3.substr(4, 2) + s3.substr(2, 2) + s3.substr(0, 2);
+            s2 = leftPad(parseInt(s4, 16),10);
+        }
+        $("#s1").text(s1);
+        $("#s2").text(s2);
+        $("#s3").text(s3);
+        $("#s4").text(s4);
+
+    });
+
+</script>
+</html>
